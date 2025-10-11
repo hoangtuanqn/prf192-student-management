@@ -7,6 +7,7 @@ struct Student {
 	int birthYear;
 	char major[255];
 	float gpa;
+	float scores[4]; // mặc định sẽ có 4 môn
 };
 
 void menu();
@@ -15,6 +16,10 @@ void displayAllStudent(struct Student students[], int currentStudent);
 void deleteStudent(struct Student students[], int *currentStudent);
 void clearEscape(char *str);
 void deleteStudent(struct Student students[], int *currentStudent);
+void editStudent(struct Student students[], int currentStudent);
+void enterScores(struct Student students[], int currentStudent);
+int findStudentByID(struct Student students[], int currentStudent, char studentCode[15]);
+float calculateGPA(struct Student student);
 
 const int MAX_STUDENTS = 200;
 int currentStudent = 0;
@@ -34,11 +39,17 @@ int main() {
 				addStudent(students, &currentStudent);
 				break;
 			case 3:
-				// chưa xử lý
 				editStudent(students, currentStudent);
 				break;
 			case 4: 
 				deleteStudent(students, &currentStudent);
+				break;
+			case 5:
+				// nhập điểm cho từng sinh viên
+				enterScores(students, currentStudent);
+				break;
+			case 6:
+				// 
 				break;
 			case 0: 
 //				deleteStudent(students, &currentStudent);
@@ -57,8 +68,32 @@ void menu() {
 	printf("\n2. Add student");
 	printf("\n3. Edit student");
 	printf("\n4. Delete student");
+	printf("\n5. Enter score student");
 	printf("\n0. Exit!");
 	printf("\nPlease enter your choice: ");
+}
+
+void enterScores(struct Student students[], int currentStudent) {
+	char studentCode[15];
+	if(currentStudent == 0) { 
+		printf("\nNo students to enter score!");
+	} else {
+		printf("\nEnter Student Code: ");
+		scanf("%s", studentCode);
+		getchar();
+		int idx = findStudentByID(students, currentStudent, studentCode);
+		if(idx != -1) {
+			for(int i = 0; i < 4; ++i) {
+				printf("Enter %d subject score: ", i + 1);
+				scanf("%f", &students[idx].scores[i]);
+			}
+			students[idx].gpa = calculateGPA(students[idx]);
+			printf("Result %.2f", calculateGPA(students[idx]));
+			printf("Score entered successfully");
+		} else {
+			printf("\nNo students found!");
+		}
+	}
 }
 
 // hàm nhập thông tin học sinh
@@ -89,6 +124,14 @@ void addStudent(struct Student students[], int *currentStudent) {
 		printf("\nAdd students successful!");
 	}
 }
+float calculateGPA(struct Student student) {
+	float sum = 0;
+	for(int i = 0; i < 4; ++i) {
+		sum += student.scores[i];
+	}
+	return sum / 4;
+	
+}
 
 // hiển thị tất cả học sinh
 void displayAllStudent(struct Student students[], int currentStudent) {
@@ -102,6 +145,7 @@ void displayAllStudent(struct Student students[], int currentStudent) {
 			printf("\nFull Name: %s", students[i].fullName);
 			printf("\nBirth Year: %d", students[i].birthYear);
 			printf("\nMajor: %s", students[i].major);
+			printf("\nGPA: %.2f", students[i].gpa);
 			printf("\n===============\n");
 		}
 	}
@@ -129,7 +173,7 @@ void deleteStudent(struct Student students[], int *currentStudent) {
 			(*currentStudent)--;
 			printf("\nDelete students successful!");
 		} else {
-			printf("No students found!");
+			printf("\nNo students found!");
 		}
 	}	
 }
@@ -156,15 +200,15 @@ void editStudent(struct Student students[], int currentStudent) {
 		getchar();
 		
 		// tìm vị trí của học sinh
-		int idx = findStudentByID(students, &currentStudent, studentCode);
+		int idx = findStudentByID(students, currentStudent, studentCode);
 		if(idx != -1) {
 			
 			printf("===== Edit Student: %s =====", students[idx].fullName);
-			printf("\nEnter Full Name (Enter to skip): ");
+			printf("\nEnter Full Name: ");
 			fgets(student.fullName, sizeof(student.fullName), stdin);
 			clearEscape(student.fullName);
 	
-			printf("Enter Birth Year (Enter to skip): ");
+			printf("Enter Birth Year: ");
 			scanf("%d", &student.birthYear);
 			getchar();
 			
