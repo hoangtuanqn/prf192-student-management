@@ -1,0 +1,69 @@
+SV001
+Nguyen Van A
+2000
+CNTT
+8.50
+8 9 7 10
+
+SV002
+Tran Thi B
+2001
+Marketing
+7.25
+7 6 8 8
+
+SV003
+Le Van C
+1999
+Marketing
+7.80
+8 7 8 8
+
+SV004
+Pham Thi D
+2000
+CNTT
+9.00
+9 9 8 10
+
+SV005
+Hoang Van E
+2002
+Marketing
+6.75
+6 7 7 7
+
+SV006
+Nguyen Thi F
+2001
+Marketing
+8.20
+8 8 8 9
+
+SV007
+Tran Van G
+1998
+CNTT
+9.10
+9 9 10 8
+
+SV008
+Le Thi H
+2000
+Marketing
+7.50
+7 8 7 8
+
+SV009
+Pham Van I
+2002
+CNTT
+8.00
+8 8 8 8
+
+SV010
+Hoang Thi J
+1999
+Marketing
+7.90
+8 8 7 9
