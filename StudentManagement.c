@@ -28,7 +28,7 @@ int currentStudent = 0;
 struct Student students[200];
 
 int main() {
-	loadDataFormFile(students, &currentStudent);
+	loadDataFromFile(students, &currentStudent);
 	int choice;
 	do {
 		menu();
@@ -86,6 +86,9 @@ int handleSortStudent(struct Student students[], int currentStudent) {
 				break;
 			case 3:
 				// sort theo birth year
+				break;
+			case 0:
+				
 				break;
 			default: 
 				printf("\nChoice invalid!\n");
@@ -351,7 +354,6 @@ void editStudent(struct Student students[], int currentStudent) {
 		// tìm vị trí của học sinh
 		int idx = findStudentByID(students, currentStudent, studentCode);
 		if(idx != -1) {
-			
 			printf("===== Edit Student: %s =====", students[idx].fullName);
 			printf("\nEnter Full Name: ");
 			fgets(student.fullName, sizeof(student.fullName), stdin);
